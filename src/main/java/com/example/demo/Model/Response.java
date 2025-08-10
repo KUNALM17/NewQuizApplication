@@ -11,7 +11,6 @@ public class Response {
 	private String response;
 	public Response() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getId() {
 		return id;
