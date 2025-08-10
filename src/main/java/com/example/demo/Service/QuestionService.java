@@ -28,12 +28,10 @@ public class QuestionService {
 	}
 
 	public List<Question> getByCategory(String category) {
-		// TODO Auto-generated method stub
 		return repo.findByCategory(category);
 	}
 
 	public ResponseEntity<String> addQuestion(Question question) {
-		// TODO Auto-generated method stub
 		try {
 		 repo.save(question);
 		 return new ResponseEntity<>("Question Added Successfully",HttpStatus.CREATED);
@@ -45,7 +43,6 @@ public class QuestionService {
 	}
 
 	public Optional<Question> getById(int id) {
-		// TODO Auto-generated method stub
 		return repo.findById(id);
 	}
 	

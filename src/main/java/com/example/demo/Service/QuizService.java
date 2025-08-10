@@ -60,7 +60,6 @@ public class QuizService {
 
 
 	public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(int id) {
-		// TODO Auto-generated method stub
 		Optional<Quiz> quiz = quizDao.findById(id);
 		List<Question> questionFromDb = quiz.get().getQuestions();
 		List<QuestionWrapper> questionForUser = new ArrayList<>();
