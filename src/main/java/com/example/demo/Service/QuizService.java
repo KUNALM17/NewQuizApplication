@@ -70,4 +70,47 @@ public class QuizService {
 		}
 		return new ResponseEntity<>(questionForUser, HttpStatus.OK);
 	}
+
+	public ResponseEntity<String> deleteQuiz(int id) {
+		try {
+			Optional<Quiz> quiz = quizDao.findById(id);
+			if (quiz.isPresent()) {
+				quizDao.deleteById(id);
+				return new ResponseEntity<>("✅ Quiz deleted successfully", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("❌ Quiz not found with id: " + id, HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("❌ Error deleting quiz: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	public ResponseEntity<String> deleteAllQuizzes() {
+		try {
+			long count = quizDao.count();
+			if (count > 0) {
+				quizDao.deleteAll();
+				return new ResponseEntity<>("✅ All " + count + " quizzes deleted successfully", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("ℹ️ No quizzes found to delete", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("❌ Error deleting all quizzes: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	public ResponseEntity<List<Quiz>> getAllQuizzes() {
+		try {
+			List<Quiz> quizzes = quizDao.findAll();
+			if (quizzes.isEmpty()) {
+				return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+			}
+			return new ResponseEntity<>(quizzes, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
